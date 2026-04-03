@@ -1,15 +1,16 @@
+import Router from "./router";
+import Button from '@mui/material/Button';
 
-
-
-
-function App() {
-
+export default function App() {
   return (
     <>
-    <h1>Hello Dhanesh</h1>
-      
-    </>
-  )
-}
+      <h1>Hello MUI</h1>
+      <Button variant="contained" color="primary">
+        Click Me
+      </Button>
 
-export default App;
+      <Router />
+
+    </>
+  );
+}
