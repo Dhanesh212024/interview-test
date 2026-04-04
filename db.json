@@ -1,0 +1,94 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Dhanesh",
+      "email": "test@gmail.com"
+    },
+    {
+      "firstName": "Dhanesh",
+      "lastName": "Nerkar",
+      "contact": "9876549875",
+      "email": "d@gmail.com",
+      "password": "Dhanesh@123",
+      "dob": "2002-02-03",
+      "address": "Nashik",
+      "pan": "NABGH1236E",
+      "kycStatus": "pending",
+      "createdAt": "2026-04-04T05:02:55.358Z",
+      "id": "RpnNJK6FCh8"
+    },
+    {
+      "firstName": "tttttt",
+      "lastName": "ddddd",
+      "contact": "7894561230",
+      "email": "t@gmail.com",
+      "password": "tttt@123",
+      "dob": "2020-02-03",
+      "address": "Nashik",
+      "pan": "ABCDE1234F",
+      "kycStatus": "pending",
+      "createdAt": "2026-04-04T07:25:38.567Z",
+      "id": "H5kTxNWYfNE"
+    }
+  ],
+ "products": [
+  {
+    "id": "1",
+    "name": "Wireless Headphones",
+    "desc": "High-quality wireless headphones with noise cancellation.",
+    "price": 2999,
+    "discount": 10,
+    "image": "https://picsum.photos/id/180/400/400"
+  },
+  {
+    "id": "2",
+    "name": "Smart Watch",
+    "desc": "Track your fitness and notifications with this smart watch.",
+    "price": 4999,
+    "discount": 15,
+    "image": "https://picsum.photos/id/1062/400/400"
+  },
+  {
+    "id": "3",
+    "name": "Bluetooth Speaker",
+    "desc": "Portable speaker with deep bass and long battery life.",
+    "price": 1999,
+    "discount": 5,
+    "image": "https://picsum.photos/id/1080/400/400"
+  },
+  {
+    "id": "4",
+    "name": "Gaming Mouse",
+    "desc": "Ergonomic gaming mouse with customizable DPI settings.",
+    "price": 799,
+    "discount": 20,
+    "image": "https://picsum.photos/id/0/400/400"
+  },
+  {
+    "id": "5",
+    "name": "Laptop Backpack",
+    "desc": "Water-resistant backpack with multiple compartments.",
+    "price": 1499,
+    "discount": 12,
+    "image": "https://picsum.photos/id/1011/400/400"
+  },
+  {
+    "id": "6",
+    "name": "USB-C Charger",
+    "desc": "Fast charging adapter compatible with multiple devices.",
+    "price": 999,
+    "discount": 8,  
+    "image": "https://picsum.photos/id/1044/400/400"
+  },
+  {
+    "id": "7",
+    "name": "Premium USB-C Charger",
+    "desc": "High power fast charger for laptops and smartphones.",
+    "price": 3999,
+    "discount": 8,
+    "image": "https://picsum.photos/id/1050/400/400"
+  }
+],
+  "$schema": "./node_modules/json-server/schema.json"
+}
