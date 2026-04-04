@@ -1,31 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { Paper, Typography, Box, Button } from "@mui/material";
-import { getUserById } from "../../api/users";
 
-export default function Card({ name, desc, price, discount, image }) {
-  const navigate = useNavigate();
-  const handleCheckout = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
 
-    if (!user) {
-      navigate("/login");
-      return;
-    }
-
-    try {
-      const freshUser = await getUserById(user.id);
-
-      if (freshUser.kycStatus !== "approved") {
-        alert("KYC is pending. Please wait for approval.");
-        return;
-      }
-
-      navigate("/checkout");
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong");
-    }
-  };
+export default function Card({ name, desc, price, discount, image, onBuy }){
   return (
     <Paper elevation={3} sx={{ borderRadius: 3 }}>
       <Box
@@ -38,7 +14,7 @@ export default function Card({ name, desc, price, discount, image }) {
           objectFit: "cover",
         }}
       />
-      <Box p={2}>
+       <Box p={2}>
         <Box display="flex" alignItems="center" gap={1}>
           <Typography variant="h6">{name}</Typography>
           <Typography variant="body2" color="success.main">
@@ -50,10 +26,14 @@ export default function Card({ name, desc, price, discount, image }) {
           {desc}
         </Typography>
 
-        <Button variant="contained" fullWidth onClick={handleCheckout}>
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={() => onBuy && onBuy({ name, price })}
+        >
           ₹{price}
         </Button>
       </Box>
     </Paper>
   );
-}
+};
