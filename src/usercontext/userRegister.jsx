@@ -1,14 +1,14 @@
 import { Button, TextField, Typography, Grid, Paper, Box } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { AuthContext } from "./context/authContext";
 import { useNavigate } from "react-router-dom";
-import { RHFTextField } from "../component";
+import { RHFTextField, ImageConvert } from "../component";
 
 export default function RegisterPage() {
-  const { addData } = useContext(AuthContext);
+  const { addData, authenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const RegisterSchema = yup.object().shape({
@@ -26,6 +26,7 @@ export default function RegisterPage() {
       .string()
       .matches(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "Invalid PAN format (ABCDE1234F)")
       .required("PAN is required"),
+    panImage: yup.string().required("PAN Image is required"),
   });
 
   const defaultValues = {
@@ -37,6 +38,7 @@ export default function RegisterPage() {
     dob: "",
     address: "",
     pan: "",
+    panImage: "",
   };
 
   const method = useForm({
@@ -51,6 +53,25 @@ export default function RegisterPage() {
     formState: { isSubmitting },
   } = method;
 
+  useEffect(() => {
+  if (authenticated) {
+    navigate("/", { replace: true });
+  }
+}, [authenticated]);
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    try {
+      const base64 = await ImageConvert(file);
+      method.setValue("panImage", base64);
+    } catch (error) {
+      console.error("File convert error:", error);
+    }
+  };
+
   const onSubmit = async (data) => {
     const response = await addData(data);
     console.log(data);
@@ -58,7 +79,7 @@ export default function RegisterPage() {
     if (response.success) {
       alert("User is Registered");
       reset();
-      navigate("/login");
+      navigate("/login", {replace: true});
     } else {
       alert("User is not Registered");
     }
@@ -75,7 +96,7 @@ export default function RegisterPage() {
           backgroundColor: "#f5f5f5",
         }}
       >
-        <Grid item xs={6} >
+        <Grid item xs={6}>
           <Paper
             elevation={4}
             sx={{
@@ -139,8 +160,20 @@ export default function RegisterPage() {
                   control={control}
                 />
 
+                  <Button variant="outlined" component="label" fullWidth>
+                    Upload Pan Image
+                    <input
+                      type="file"
+                      name="panImage"
+                      hidden
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                    />
+                  </Button>
+
                 <Grid item xs={12}>
                   <Button
+                    sx={{mt:3}}
                     type="submit"
                     fullWidth
                     variant="contained"

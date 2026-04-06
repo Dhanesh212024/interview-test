@@ -14,3 +14,19 @@ export const getProducts = async () => {
     };
   }
 };
+
+export const getProductById = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/products/${id}`);
+
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch {
+    return {
+      success: false,
+      message: "Product not found",
+    };
+  }
+};

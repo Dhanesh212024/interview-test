@@ -29,7 +29,7 @@ export default function Card({ name, desc, price, discount, image, onBuy }){
         <Button
           variant="contained"
           fullWidth
-          onClick={() => onBuy && onBuy({ name, price })}
+          onClick={onBuy}
         >
           ₹{price}
         </Button>

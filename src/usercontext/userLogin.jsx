@@ -1,6 +1,6 @@
 import { Button, TextField, Typography, Grid, Paper, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import { RHFTextField } from "../component";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login, authenticated } = useContext(AuthContext);
 
   const LoginSchema = yup.object().shape({
     email: yup
@@ -34,6 +34,12 @@ export default function LoginPage() {
     formState: { isSubmitting },
   } = method;
 
+  useEffect(() => {
+  if (authenticated) {
+    navigate("/", { replace: true });
+  }
+}, [authenticated]);
+
   const OnSubmit = handleSubmit(async (data) => {
     try {
       const response = await login(data);
@@ -41,7 +47,7 @@ export default function LoginPage() {
 
       if (response?.success) {
         alert("Login Done");
-        navigate("/");
+        navigate("/", { replace: true });
       } else {
         alert(response?.message || "Login is fail");
       }

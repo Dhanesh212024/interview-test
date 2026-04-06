@@ -1,9 +1,14 @@
 import { Grid, Typography, Box } from "@mui/material";
-import Card from "../products/card/product-card";
+import Card from "./card/product-card";
 import { useEffect, useState } from "react";
 import { getProducts } from "../api/products";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../usercontext/context/authContext"; // adjust path if needed
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const { authenticated } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -18,6 +23,14 @@ export default function Dashboard() {
     };
     fetchProducts();
   }, []);
+
+const handleBuy = (id) => {
+  if (!authenticated) {
+    navigate("/login", { replace: true });
+  } else {
+    navigate(`/order/${id}`);
+  }
+};
 
   return (
     <Box p={3}>
@@ -34,7 +47,7 @@ export default function Dashboard() {
               price={item.price}
               discount={item.discount}
               image={item.image}
-              onBuy={item.product}
+              onBuy={() => handleBuy(item.id)}
             />
           </Grid>
         ))}
