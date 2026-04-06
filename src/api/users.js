@@ -1,8 +1,21 @@
 import axiosInstance from "./auth-api/axiosConnect";
 
 export const registerUser = async (data) => {
-  const response = await axiosInstance.post("/users", data);
-  return response.data;
+  try {
+    const response = await axiosInstance.post("/users", data);
+
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    console.error("Register API Error:", error);
+
+    return {
+      success: false,
+      message: "Registration failed",
+    };
+  }
 };
 
 export const loginUser = async (data) => {
