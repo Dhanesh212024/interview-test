@@ -20,7 +20,7 @@ export default function AuthProvider({ children }) {
       
      const response =  await registerUser(payload);
      console.log("Register Success",response);
-      return;
+      return response;
 
     } catch (error) {
       console.error(error);
